@@ -25,8 +25,9 @@ public class Bloqueados {
     private String tiempoServicio;
     private String tiempoRetorno;
     private String tiempoRespuesta;
+    private String tiempoLlegada;
 
-    public Bloqueados(String name, String op1, String operators, String op2, String result, String id, String tiempoMaximo, String lote, String tiempoTranscurrido, String tiempoFinalizacion, String tiempoEspera, String tiempoServicio, String tiempoRetorno, String tiempoRespuesta) {
+    public Bloqueados(String name, String op1, String operators, String op2, String result, String id, String tiempoMaximo, String lote, String tiempoTranscurrido, String tiempoFinalizacion, String tiempoEspera, String tiempoServicio, String tiempoRetorno, String tiempoRespuesta, String tiempoLlegada) {
         this.name = name;
         this.op1 = op1;
         this.operators = operators;
@@ -41,6 +42,7 @@ public class Bloqueados {
         this.tiempoServicio = tiempoServicio;
         this.tiempoRetorno = tiempoRetorno;
         this.tiempoRespuesta = tiempoRespuesta;
+        this.tiempoLlegada = tiempoLlegada;
     }
 
     public String getName() {
@@ -154,10 +156,17 @@ public class Bloqueados {
     public void setTiempoRespuesta(String tiempoRespuesta) {
         this.tiempoRespuesta = tiempoRespuesta;
     }
+
+    public String getTiempoLlegada() {
+        return tiempoLlegada;
+    }
+
+    public void setTiempoLlegada(String tiempoLlegada) {
+        this.tiempoLlegada = tiempoLlegada;
+    }
     
     
     
     
-    
-    
-}
+
+   }

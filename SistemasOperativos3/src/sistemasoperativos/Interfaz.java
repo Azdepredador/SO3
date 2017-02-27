@@ -44,9 +44,12 @@ public class Interfaz extends javax.swing.JFrame {
     int mostrarLotes = 1;
     int lote = 0;
     boolean keyP = false, keyE = false, keyC = false, keyI = false;
+    int tiempoRespuesta=1;
+
 
     private final ArrayList<Procesos> procesos = new ArrayList<>();
     private final ArrayList<Bloqueados> bloqueados = new ArrayList<>();
+    private final ArrayList<Procesos>listos = new ArrayList<>();
 
     /**
      * Creates new form Interfaz
@@ -315,20 +318,41 @@ public class Interfaz extends javax.swing.JFrame {
     }//GEN-LAST:event_ejecutarBActionPerformed
 
     public void mostrarLotesEjecucion() {
-
+        
         lotesEjecucionT.setText("");
-
+ 
+        
         for (int j = 0; j < procesos.size(); j++) {
-
-            if (j == 4) {
+            
+            if (j ==4 ) {
                 break;
             }
+            
             lotesEjecucionT.append("ID: " + procesos.get(j).getId() + "    "
                     + "TR: " + procesos.get(j).getTiempoMaximo() + "     "
                     + "TT: " + procesos.get(j).getTiempoTranscurrido() + "\n");
-
+            
+            
+            if(procesos.get(j).getTiempoLlegada().equals("0")){
+                procesos.get(j).setTiempoLlegada(Integer.toString(contador));
+            }
+            
+            if(procesos.get(j).getId().equals("0")){
+                procesos.get(j).setTiempoLlegada("0");
+            }
+            else if(procesos.get(j).getId().equals("1")){
+                 procesos.get(j).setTiempoLlegada("0");
+            }
+            else if(procesos.get(j).getId().equals("2")){
+                 procesos.get(j).setTiempoLlegada("0");
+            }
+            else if(procesos.get(j).getId().equals("3")){
+                 procesos.get(j).setTiempoLlegada("0");
+            }
+            
+         
         }
-
+        
     }
 
     @SuppressWarnings("empty-statement")
@@ -339,7 +363,7 @@ public class Interfaz extends javax.swing.JFrame {
         int op1, op2, op, tiempoMaximo, numLote = 1;
         int id = 0;
         boolean aux = false;
-        String[] operadores = {"+", "/", "*", "%", "potencia", "sqrt", "-"};
+        String[] operadores = {"+", "/", "*", "%", "+", "sqrt", "-"}; //potencia
 
         lote = numeroProcesos / 4;
 
@@ -365,17 +389,33 @@ public class Interfaz extends javax.swing.JFrame {
 
                 aux = true;
             }
-
-            procesos.add(new Procesos("",
+            if(i>=5){
+                
+                 listos.add(new Procesos("",
                     Integer.toString(op1),
                     operadores[op],
                     Integer.toString(op2),
                     "",
                     Integer.toString(id),
                     Integer.toString(tiempoMaximo),
-                    Integer.toString(numLote), "0", "", "", "", "", ""
+                    Integer.toString(numLote), "0", "", "", "", "", " ","0"
+            ));  
+                 
+            }
+            else{
+                
+                procesos.add(new Procesos("",
+                    Integer.toString(op1),
+                    operadores[op],
+                    Integer.toString(op2),
+                    "",
+                    Integer.toString(id),
+                    Integer.toString(tiempoMaximo),
+                    Integer.toString(numLote), "0", "", "", "", "", " ","0"
             ));
 
+            }
+            
             id++;
         }
 
@@ -384,6 +424,41 @@ public class Interfaz extends javax.swing.JFrame {
 
     }//GEN-LAST:event_registrarBActionPerformed
 
+    
+    public void aListos(){
+        
+        String op1P,operatorsP,op2P,resultP,idP,tiempoMaximoP,loteP,tiempoTranscurridoP,
+                tiempoLlegadaP, tiempoRespuestaP,tiempoEsperaP;
+        
+        
+        if(!listos.isEmpty()){
+        
+        op1P = listos.get(0).getOp1();
+        operatorsP = listos.get(0).getOperators();
+        op2P = listos.get(0).getOp2();
+        resultP = listos.get(0).getResult();
+        idP = listos.get(0).getId();
+        tiempoMaximoP = listos.get(0).getTiempoMaximo();
+        loteP = listos.get(0).getLote();
+        tiempoTranscurridoP = listos.get(0).getTiempoTranscurrido();
+        tiempoLlegadaP= listos.get(0).getTiempoLlegada();
+        tiempoRespuestaP=listos.get(0).getTiempoRespuesta();
+        tiempoEsperaP=listos.get(0).getTiempoEspera();
+        
+
+        procesos.add(new Procesos("", op1P, operatorsP, op2P,
+          resultP, idP, tiempoMaximoP, loteP, tiempoTranscurridoP, "", tiempoEsperaP, "", "", tiempoRespuestaP,tiempoLlegadaP));
+        
+        listos.remove(0);
+        
+        
+        }
+        
+        
+        
+    }
+    
+    
     public boolean verificaID(String id) {
         for (int i = 0; i < numeroProcesos; i++) {
 
@@ -485,7 +560,8 @@ public class Interfaz extends javax.swing.JFrame {
     }
 
     public void BloqueadoListo() {
-        String op1P, operatorsP, op2P, resultP, idP, tiempoMaximoP, loteP, tiempoTranscurridoP;
+        String op1P, operatorsP, op2P, resultP, idP, tiempoMaximoP, loteP, tiempoTranscurridoP,
+                tiempoLlegadaP,tiempoRespuestaP,tiempoEsperaP;
         
         
         
@@ -504,9 +580,13 @@ public class Interfaz extends javax.swing.JFrame {
         tiempoMaximoP = bloqueados.get(0).getTiempoMaximo();
         loteP = bloqueados.get(0).getLote();
         tiempoTranscurridoP = bloqueados.get(0).getTiempoTranscurrido();
+        tiempoLlegadaP= bloqueados.get(0).getTiempoLlegada();
+        tiempoRespuestaP=bloqueados.get(0).getTiempoRespuesta();
+        tiempoEsperaP=bloqueados.get(0).getTiempoEspera();
         
+
         procesos.add(new Procesos("", op1P, operatorsP, op2P,
-          resultP, idP, tiempoMaximoP, loteP, tiempoTranscurridoP, "", "", "", "", ""));
+          resultP, idP, tiempoMaximoP, loteP, tiempoTranscurridoP, "", tiempoEsperaP, "", "", tiempoRespuestaP,tiempoLlegadaP));
         
         bloqueados.remove(0);
         
@@ -527,9 +607,12 @@ public class Interfaz extends javax.swing.JFrame {
 
     public void proceso() throws InterruptedException {
         boolean aumenta = false;
-        String op1P, operatorsP, op2P, resultP, idP, tiempoMaximoP, loteP, tiempoTranscurridoP;
+        String op1P, operatorsP, op2P, resultP, idP, tiempoMaximoP, loteP, 
+                tiempoTranscurridoP, tiempoLlegadaP,tiempoRespuestaP, tiempoEsperaP;
+        int tiempoRetorno,tf,tll;
         int i = 0;
         int c = 1;
+        int tr,ts,te;
 
         for(int k=0; k<lote; k++){
         
@@ -543,15 +626,19 @@ public class Interfaz extends javax.swing.JFrame {
             i = 0;
             
             if(procesos.isEmpty()){
-                System.out.println("Vacio");
+                //System.out.println("Vacio");
                 if(!bloqueados.isEmpty()){
-                    System.out.println("Bloqueado vacios");
+                    procesoEjecucion.setText("");
+                  //  System.out.println("Bloqueado vacios");
                     while(true){
                         c++;
-                        System.out.println("Holo");
-                        Thread.sleep(500);
-                        bloqueadosL.setText(Integer.toString(c));
-                        if(c==9){
+                        //System.out.println("Holo");
+                         contadorL.setText(Integer.toString(contador+1 ));
+                         contador++;
+                        
+                         Thread.sleep(500);
+                         bloqueadosL.setText(Integer.toString(c));
+                        if(c==8){
                              //bloqueadosL.setText(Integer.toString(c));
                             c=1;
                             BloqueadoListo();
@@ -567,6 +654,23 @@ public class Interfaz extends javax.swing.JFrame {
             }
 
             procesos.get(i).setResult(operacion(i)); //resultado operacion
+            
+            if(procesos.get(i).getTiempoRespuesta().equals(" ")){
+                
+                if(procesos.get(i).getId().equals("0")){
+                     procesos.get(i).setTiempoRespuesta("0");
+                }
+                else{
+                    int TLL=Integer.parseInt(procesos.get(i).getTiempoLlegada());
+                    int res=tiempoRespuesta-TLL;
+                
+                 procesos.get(i).setTiempoRespuesta(Integer.toString(res));
+                }
+                
+                
+                
+            }
+           
 
             procesoEjecucion.setText(
                     "Operacion: " + procesos.get(i).getOp1() + " " + procesos.get(i).getOperators() + " " + procesos.get(i).getOp2() + "\n"
@@ -578,9 +682,10 @@ public class Interfaz extends javax.swing.JFrame {
             tiempoTranscurridoL.setText("0");
             String op = procesos.get(i).getOp1() + " " + procesos.get(i).getOperators() + " " + procesos.get(i).getOp2();
 
-            for (int j = 0; j < tiempo; j++) {
+            int j;
+            for (j = 0; j < tiempo; j++) {
                 
-
+                tiempoRespuesta++;
                 tiempoTranscurridoL.setText(Integer.toString(j));
                 tiempoRestanteL.setText(Integer.toString(tiempo - j));
 
@@ -619,12 +724,12 @@ public class Interfaz extends javax.swing.JFrame {
                 if (keyE) {
 
                     procesos.get(i).setResult("Error");
-                    procesos.get(i).setTiempoTranscurrido("X");
+                    procesos.get(i).setTiempoTranscurrido(Integer.toString(j));
                     // mostrarLotesEjecucion();
 
                     op = "Error";
 
-                    keyE = false;
+                   
                     k--;
                     break;
                 }
@@ -638,11 +743,15 @@ public class Interfaz extends javax.swing.JFrame {
                     tiempoMaximoP = procesos.get(i).getTiempoMaximo();
                     loteP = procesos.get(i).getLote();
                     tiempoTranscurridoP = procesos.get(i).getTiempoTranscurrido();
+                    tiempoLlegadaP= procesos.get(i).getTiempoLlegada();
+                    tiempoRespuestaP=procesos.get(i).getTiempoRespuesta();
+                    tiempoEsperaP=procesos.get(i).getTiempoEspera();
 
                     bloqueados.add(new Bloqueados("", op1P, operatorsP, op2P,
-                            resultP, idP, tiempoMaximoP, loteP, tiempoTranscurridoP, "", "", "", "", ""));
+                            resultP, idP, tiempoMaximoP, loteP, tiempoTranscurridoP, "", tiempoEsperaP, "", "",tiempoRespuestaP,tiempoLlegadaP));//falta tiempo de llegada es el ultimo
 
                     procesos.remove(i);
+
                    
                     k--;
                     aumenta=true;
@@ -660,15 +769,50 @@ public class Interfaz extends javax.swing.JFrame {
 
                 break;
             }
-
+            if(keyE){
+                 keyE = false;      
+            }
+            else{
+                procesos.get(i).setTiempoTranscurrido(Integer.toString(j));
+            }
+            
+            
+            
+            
+            procesos.get(i).setTiempoFinalizacion(Integer.toString(contador));
+            tf=Integer.parseInt(procesos.get(i).getTiempoFinalizacion());
+            tll=Integer.parseInt(procesos.get(i).getTiempoLlegada());
+            tiempoRetorno=tf-tll;
+            procesos.get(i).setTiempoRetorno(Integer.toString(tiempoRetorno));
+            
+            
+            ts=Integer.parseInt(procesos.get(i).getTiempoTranscurrido());
+            tr=Integer.parseInt(procesos.get(i).getTiempoRetorno());
+            te=(tr-ts);
+        
+            if(te<=0){
+                
+                procesos.get(i).setTiempoEspera("0");
+                
+            }else{
+                 procesos.get(i).setTiempoEspera(Integer.toString(te+1));
+            }
+            
             procesoTerminadoL.append(
                     "id: " + procesos.get(i).getId() + "    "
-                    + "lote: " + procesos.get(i).getLote() + "    "
+                   // + "lote: " + procesos.get(i).getLote() + "    "
                     + "Op: " + op + "    "
-                    + "resultado: " + procesos.get(i).getResult() + "\n"
+                    + "resultado: " + procesos.get(i).getResult() + "           "
+                    +"TLL: "+procesos.get(i).getTiempoLlegada()+"    "
+                    +"TF: "+procesos.get(i).getTiempoFinalizacion()+"    "
+                    +"TRetorno: "+procesos.get(i).getTiempoRetorno()+"    "
+                    +"TServicio: "+procesos.get(i).getTiempoTranscurrido()+"    "
+                    +"TEspera: "+procesos.get(i).getTiempoEspera()+"    "
+                    +"TRespuesta: "+procesos.get(i).getTiempoRespuesta()+"\n"
             );
 
             procesos.remove(i);
+            aListos();
 
         } while (!procesos.isEmpty());
         
@@ -678,6 +822,7 @@ public class Interfaz extends javax.swing.JFrame {
         lotesEjecucionT.setText("");
         tiempoTranscurridoL.setText("");
         bloqueadosL.setText("0");
+        tiempoRespuesta=1;
         aumenta=false;
 
     }

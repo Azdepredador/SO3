@@ -26,8 +26,9 @@ public class Procesos {
     private String tiempoRetorno;
     private String tiempoRespuesta;
     private String tiempoLlegada;
+    private String tiempoMaximoEstimado;
 
-    public Procesos(String name, String op1, String operators, String op2, String result, String id, String tiempoMaximo, String lote, String tiempoTranscurrido, String tiempoFinalizacion, String tiempoEspera, String tiempoServicio, String tiempoRetorno, String tiempoRespuesta, String tiempoLlegada) {
+    public Procesos(String name, String op1, String operators, String op2, String result, String id, String tiempoMaximo, String lote, String tiempoTranscurrido, String tiempoFinalizacion, String tiempoEspera, String tiempoServicio, String tiempoRetorno, String tiempoRespuesta, String tiempoLlegada, String tiempoMaximoEstimado) {
         this.name = name;
         this.op1 = op1;
         this.operators = operators;
@@ -43,6 +44,7 @@ public class Procesos {
         this.tiempoRetorno = tiempoRetorno;
         this.tiempoRespuesta = tiempoRespuesta;
         this.tiempoLlegada = tiempoLlegada;
+        this.tiempoMaximoEstimado = tiempoMaximoEstimado;
     }
 
     public String getName() {
@@ -164,7 +166,17 @@ public class Procesos {
     public void setTiempoLlegada(String tiempoLlegada) {
         this.tiempoLlegada = tiempoLlegada;
     }
+
+    public String getTiempoMaximoEstimado() {
+        return tiempoMaximoEstimado;
+    }
+
+    public void setTiempoMaximoEstimado(String tiempoMaximoEstimado) {
+        this.tiempoMaximoEstimado = tiempoMaximoEstimado;
+    }
     
+    
+   
     
 
    
